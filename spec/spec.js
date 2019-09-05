@@ -44,5 +44,20 @@ describe('/api', () => {
             'maxlength'
           );
         }));
+    it('POST: SUCCESS responds with 201 and the created story', () => {
+      const newStory = {
+        title: 'This is test story 4',
+        created_by: 2,
+        maxlength: 50
+      };
+      return request
+        .post('/api/stories/')
+        .send(newStory)
+        .expect(201)
+        .then(res => {
+          expect(res.body).to.have.all.keys('story');
+          expect(res.body.story.story_id).to.equal(4);
+        });
+    });
   });
 });

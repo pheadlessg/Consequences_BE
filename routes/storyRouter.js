@@ -6,6 +6,9 @@ const {
   deleteStory
 } = require('../controllers/storiesController');
 
-storyRouter.route('/').get(getAllStories);
+storyRouter
+  .route('/')
+  .get(getAllStories)
+  .post(postNewStory);
 
 module.exports = storyRouter;
