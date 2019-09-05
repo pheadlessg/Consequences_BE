@@ -1,0 +1,8 @@
+{
+  "stories": "/api/stories",
+  "single_story": "/api/stories/:story_id",
+  "lines": "/api/stories/:story_id/lines",
+  "single_line": "/api/stories/:story_id/:line_id",
+  "users": "/api/users",
+  "single_user": "/api/users/:user_id"
+}
