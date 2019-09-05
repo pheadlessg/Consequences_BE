@@ -28,4 +28,21 @@ describe('/api', () => {
           );
         }));
   });
+  describe('/stories/', () => {
+    it('GET: SUCCESS responds with 200 and an array of all stories', () =>
+      request
+        .get('/api/stories/')
+        .expect(200)
+        .then(res => {
+          expect(res.body).to.be.an('array');
+          expect(res.body.length).to.equal(3);
+          expect(res.body[0]).to.have.all.keys(
+            'story_id',
+            'title',
+            'created_at',
+            'created_by',
+            'maxlength'
+          );
+        }));
+  });
 });
