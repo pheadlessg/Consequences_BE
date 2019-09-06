@@ -114,7 +114,7 @@ describe('/api', () => {
           );
       });
       describe('/lines', () => {
-        it('GET : SUCCESS returns an array of all lines from a single story', () => {
+        it('GET : SUCCESS returns 200 and an array of all lines from a single story', () => {
           request
             .get('/api/stories/1/lines')
             .expect(200)
@@ -125,6 +125,18 @@ describe('/api', () => {
             });
         });
       });
+    });
+  });
+  describe('/users', () => {
+    it('GET : SUCCESS returns 200 and an array of all users', () => {
+      request
+        .get('/api/users/')
+        .expect(200)
+        .then(res => {
+          expect(res.body).to.be.an('array');
+          expect(res.body.length).to.equal(3);
+          expect(res.body[0].user_id).to.equal(1);
+        });
     });
   });
 });

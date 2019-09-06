@@ -20,4 +20,5 @@ storyRouter
   .delete(deleteStory);
 
 storyRouter.route('/:story_id/lines').get(getLines);
+
 module.exports = storyRouter;
