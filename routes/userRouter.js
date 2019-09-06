@@ -9,6 +9,6 @@ const {
 
 userRouter.route('/').get(getAllUsers);
 //   .post(postNewUser)
+userRouter.route('/:user_id').get(getSingleUser);
 //   .delete(deleteUser)
-
 module.exports = userRouter;

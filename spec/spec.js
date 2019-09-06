@@ -138,5 +138,16 @@ describe('/api', () => {
           expect(res.body[0].user_id).to.equal(1);
         });
     });
+    describe('/:user_id', () => {
+      it('GET : SUCCESS returns 200 and a single user object', () => {
+        request
+          .get('/api/users/1')
+          .expect(200)
+          .then(res => {
+            expect(res.body.user_id).to.equal(1);
+            expect(res.body.username).to.equal('testuser1');
+          });
+      });
+    });
   });
 });

@@ -5,5 +5,10 @@ module.exports = {
     return db('users')
       .select()
       .returning('*');
+  },
+  fetchSingleUser(params) {
+    return db('users')
+      .select()
+      .where({ user_id: params.user_id });
   }
 };
