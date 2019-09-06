@@ -4,6 +4,7 @@ module.exports = {
   fetchAllStories() {
     return db('stories')
       .select()
+      .join('users', 'stories.created_by', '=', 'users.user_id')
       .returning('*');
   },
   makeStory(body) {
@@ -15,5 +16,11 @@ module.exports = {
         maxlength: body.maxlength
       })
       .returning('*');
+  },
+  fetchSingleStory(params) {
+    return db('stories')
+      .select()
+      .join('users', 'stories.created_by', '=', 'users.user_id')
+      .where({ 'stories.story_id': params.story_id });
   }
 };

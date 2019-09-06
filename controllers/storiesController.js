@@ -22,5 +22,12 @@ module.exports = {
         res.status(201).send(finalStory);
       })
       .catch(next);
+  },
+  getSingleStory(req, res, next) {
+    fetchSingleStory(req.params)
+      .then(story => {
+        res.status(200).send(story[0]);
+      })
+      .catch(next);
   }
 };

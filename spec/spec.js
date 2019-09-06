@@ -41,7 +41,10 @@ describe('/api', () => {
             'title',
             'created_at',
             'created_by',
-            'maxlength'
+            'maxlength',
+            'user_id',
+            'avatar_url',
+            'username'
           );
         }));
     it('POST: SUCCESS responds with 201 and the created story', () => {
@@ -56,8 +59,29 @@ describe('/api', () => {
         .expect(201)
         .then(res => {
           expect(res.body).to.have.all.keys('story');
+          expect(res.body.story.title).to.equal('This is test story 4');
+          expect(res.body.story.created_by).to.equal(2);
           expect(res.body.story.story_id).to.equal(4);
         });
+    });
+    describe('/:story_id', () => {
+      it('GET: SUCCESS responds with 200 and an individual story when passed a parametric endpoint', () =>
+        request
+          .get('/api/stories/1')
+          .expect(200)
+          .then(res => {
+            expect(res.body).to.have.all.keys(
+              'story_id',
+              'title',
+              'created_at',
+              'created_by',
+              'maxlength',
+              'user_id',
+              'avatar_url',
+              'username'
+            );
+            expect(res.body.story_id).to.equal(1);
+          }));
     });
   });
 });
