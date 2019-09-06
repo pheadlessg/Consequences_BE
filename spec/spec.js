@@ -73,15 +73,35 @@ describe('/api', () => {
             expect(res.body).to.have.all.keys(
               'story_id',
               'title',
-              'created_at',
-              'created_by',
+              'story_created_at',
+              'story_created_by',
               'maxlength',
-              'user_id',
-              'avatar_url',
-              'username'
+              'user_avatar'
             );
             expect(res.body.story_id).to.equal(1);
           }));
+      it('POST : SUCCESS will respond with 201 status and the added line', () => {
+        const newLine = {
+          body: 'This is a new test string belonging to story 1',
+          belongs_to: 1,
+          created_by: 1
+        };
+        return request
+          .post('/api/stories/1')
+          .send(newLine)
+          .expect(201)
+          .then(res => {
+            expect(res.body).to.have.all.keys('line');
+            expect(res.body.line).to.have.all.keys(
+              'line_id',
+              'body',
+              'created_at',
+              'created_by',
+              'belongs_to'
+            );
+            expect(res.body.line.line_id).to.equal(4);
+          });
+      });
       it('DELETE : SUCCESS will respond with 204 on successful deletion', () => {
         request
           .delete('/api/stories/1')
@@ -92,6 +112,18 @@ describe('/api', () => {
               expect(res.body[0].story_id).to.equal(2);
             })
           );
+      });
+      describe('/lines', () => {
+        it('GET : SUCCESS returns an array of all lines from a single story', () => {
+          request
+            .get('/api/stories/1/lines')
+            .expect(200)
+            .then(res => {
+              expect(res.body).to.be.an('array');
+              expect(res.body.length).to.equal(2);
+              expect(res.body[0].username).to.equal('testuser1');
+            });
+        });
       });
     });
   });

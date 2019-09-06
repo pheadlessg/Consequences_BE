@@ -2,7 +2,9 @@ const {
   fetchAllStories,
   fetchSingleStory,
   makeStory,
-  removeStory
+  makeNewLine,
+  removeStory,
+  fetchLines
 } = require('../models/storiesModels');
 
 module.exports = {
@@ -13,6 +15,7 @@ module.exports = {
       })
       .catch(next);
   },
+
   postNewStory(req, res, next) {
     makeStory(req.body)
       .then(story => {
@@ -23,6 +26,7 @@ module.exports = {
       })
       .catch(next);
   },
+
   getSingleStory(req, res, next) {
     fetchSingleStory(req.params)
       .then(story => {
@@ -30,9 +34,29 @@ module.exports = {
       })
       .catch(next);
   },
+
+  addStoryLine(req, res, next) {
+    makeNewLine(req.params, req.body)
+      .then(line => {
+        const finalLine = {
+          line: line[0]
+        };
+        res.status(201).send(finalLine);
+      })
+      .catch(next);
+  },
+
   deleteStory(req, res, next) {
     removeStory(req.params)
       .then(res.status(204).send('Deleted'))
+      .catch(next);
+  },
+
+  getLines(req, res, next) {
+    fetchLines(req.params)
+      .then(lines => {
+        res.status(200).send(lines);
+      })
       .catch(next);
   }
 };
