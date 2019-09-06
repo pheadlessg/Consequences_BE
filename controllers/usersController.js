@@ -20,5 +20,15 @@ module.exports = {
         res.status(200).send(user[0]);
       })
       .catch(next);
+  },
+  postNewUser(req, res, next) {
+    makeUser(req.body)
+      .then(user => {
+        const finalUser = {
+          user: user[0]
+        };
+        res.status(201).send(finalUser);
+      })
+      .catch(next);
   }
 };

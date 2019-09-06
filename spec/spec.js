@@ -138,6 +138,22 @@ describe('/api', () => {
           expect(res.body[0].user_id).to.equal(1);
         });
     });
+    it('POST : SUCCESS will respond with 201 status and the added user', () => {
+      const newUser = {
+        username: 'testuser4',
+        avatar_url:
+          'https://avatars2.githubusercontent.com/u/24604688?s=460&v=4'
+      };
+      return request
+        .post('/api/users')
+        .send(newUser)
+        .expect(201)
+        .then(res => {
+          expect(res.body).to.have.all.keys('user');
+          expect(res.body.user.user_id).to.equal(4);
+          expect(res.body.user.username).to.equal('testuser4');
+        });
+    });
     describe('/:user_id', () => {
       it('GET : SUCCESS returns 200 and a single user object', () => {
         request

@@ -9,7 +9,7 @@ exports.up = function(knex) {
       .string('username')
       .notNullable()
       .unique();
-    users.string('avatar_url').notNullable();
+    users.string('avatar_url');
     users.timestamp('created_at').notNullable();
   });
 };
