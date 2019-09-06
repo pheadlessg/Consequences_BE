@@ -2,7 +2,7 @@ const {
   fetchAllStories,
   fetchSingleStory,
   makeStory,
-  deleteStory
+  removeStory
 } = require('../models/storiesModels');
 
 module.exports = {
@@ -28,6 +28,11 @@ module.exports = {
       .then(story => {
         res.status(200).send(story[0]);
       })
+      .catch(next);
+  },
+  deleteStory(req, res, next) {
+    removeStory(req.params)
+      .then(res.status(204).send('Deleted'))
       .catch(next);
   }
 };

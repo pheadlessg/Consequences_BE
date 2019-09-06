@@ -29,7 +29,7 @@ describe('/api', () => {
         }));
   });
   describe('/stories/', () => {
-    it('GET: SUCCESS responds with 200 and an array of all stories', () =>
+    it('GET : SUCCESS responds with 200 and an array of all stories', () =>
       request
         .get('/api/stories/')
         .expect(200)
@@ -47,7 +47,7 @@ describe('/api', () => {
             'username'
           );
         }));
-    it('POST: SUCCESS responds with 201 and the created story', () => {
+    it('POST : SUCCESS responds with 201 and the created story', () => {
       const newStory = {
         title: 'This is test story 4',
         created_by: 2,
@@ -65,7 +65,7 @@ describe('/api', () => {
         });
     });
     describe('/:story_id', () => {
-      it('GET: SUCCESS responds with 200 and an individual story when passed a parametric endpoint', () =>
+      it('GET : SUCCESS responds with 200 and an individual story when passed a parametric endpoint', () =>
         request
           .get('/api/stories/1')
           .expect(200)
@@ -82,6 +82,17 @@ describe('/api', () => {
             );
             expect(res.body.story_id).to.equal(1);
           }));
+      it('DELETE : SUCCESS will respond with 204 on successful deletion', () => {
+        request
+          .delete('/api/stories/1')
+          .expect(204)
+          .then(() =>
+            request.get('/api/stories/').then(res => {
+              expect(res.body.length).to.equal(2);
+              expect(res.body[0].story_id).to.equal(2);
+            })
+          );
+      });
     });
   });
 });

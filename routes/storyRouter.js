@@ -10,6 +10,9 @@ storyRouter
   .route('/')
   .get(getAllStories)
   .post(postNewStory);
-storyRouter.route('/:story_id').get(getSingleStory);
+storyRouter
+  .route('/:story_id')
+  .get(getSingleStory)
+  .delete(deleteStory);
 
 module.exports = storyRouter;

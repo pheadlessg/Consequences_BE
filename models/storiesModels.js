@@ -21,6 +21,11 @@ module.exports = {
     return db('stories')
       .select()
       .join('users', 'stories.created_by', '=', 'users.user_id')
-      .where({ 'stories.story_id': params.story_id });
+      .where({ story_id: params.story_id });
+  },
+  removeStory(params) {
+    return db('stories')
+      .where({ story_id: params.story_id })
+      .del();
   }
 };
