@@ -164,6 +164,18 @@ describe('/api', () => {
             expect(res.body.username).to.equal('testuser1');
           });
       });
+      describe('/lines', () => {
+        it('GET : SUCCESS returns 200 and an array of all lines associated with that user', () => {
+          request
+            .get('/api/users/2/lines')
+            .expect(200)
+            .then(res => {
+              expect(res.body).to.be.an('array');
+              expect(res.body.length).to.equal(2);
+              expect(res.body[0].created_by).to.equal(2);
+            });
+        });
+      });
     });
   });
 });

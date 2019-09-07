@@ -11,6 +11,9 @@ userRouter
   .route('/')
   .get(getAllUsers)
   .post(postNewUser);
+
 userRouter.route('/:user_id').get(getSingleUser);
-//   .delete(deleteUser)
+
+userRouter.route('/:user_id/lines').get(getUserLines);
+
 module.exports = userRouter;

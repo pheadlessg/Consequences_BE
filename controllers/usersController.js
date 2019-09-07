@@ -2,7 +2,6 @@ const {
   fetchAllUsers,
   fetchSingleUser,
   makeUser,
-  removeUser,
   fetchUserLines
 } = require('../models/usersModels');
 
@@ -28,6 +27,13 @@ module.exports = {
           user: user[0]
         };
         res.status(201).send(finalUser);
+      })
+      .catch(next);
+  },
+  getUserLines(req, res, next) {
+    fetchUserLines(req.params)
+      .then(lines => {
+        res.status(200).send(lines);
       })
       .catch(next);
   }

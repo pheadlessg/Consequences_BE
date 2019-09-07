@@ -19,5 +19,10 @@ module.exports = {
         created_at: 'NOW()'
       })
       .returning('*');
+  },
+  fetchUserLines(params) {
+    return db('lines')
+      .select()
+      .where({ created_by: params.user_id });
   }
 };
