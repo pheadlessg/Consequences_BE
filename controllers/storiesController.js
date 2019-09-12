@@ -29,8 +29,9 @@ module.exports = {
 
   getSingleStory(req, res, next) {
     fetchSingleStory(req.params)
-      .then(story => {
-        res.status(200).send(story[0]);
+      .then(([story]) => {
+        if (!story) return Promise.reject({ status: 404 });
+        return res.status(200).send(story);
       })
       .catch(next);
   },

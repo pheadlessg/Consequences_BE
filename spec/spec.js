@@ -90,6 +90,14 @@ describe('/api', () => {
             );
             expect(res.body.story_id).to.equal(1);
           }));
+      it('GET : FAILURE responds with 404 when any page other than an endpoint is used', () => {
+        request
+          .get('/api/stories/100')
+          .expect(404)
+          .then(res => {
+            expect(res.body.msg).to.equal('Page not found');
+          });
+      });
       it('POST : SUCCESS will respond with 201 status and the added line', () => {
         const newLine = {
           body: 'This is a new test string belonging to story 1',
