@@ -28,6 +28,16 @@ describe('/api', () => {
           );
         }));
   });
+  describe('/*', () => {
+    it('GET : FAILURE responds with 404 when any page other than an endpoint is used', () => {
+      request
+        .get('/api/notapath')
+        .expect(404)
+        .then(res => {
+          expect(res.body.msg).to.equal('Page not found');
+        });
+    });
+  });
   describe('/stories/', () => {
     it('GET : SUCCESS responds with 200 and an array of all stories', () =>
       request
