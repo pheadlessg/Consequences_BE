@@ -15,8 +15,9 @@ module.exports = {
   },
   getSingleUser(req, res, next) {
     fetchSingleUser(req.params)
-      .then(user => {
-        res.status(200).send(user[0]);
+      .then(([user]) => {
+        if (!user) return Promise.reject({ status: 404 });
+        return res.status(200).send(user);
       })
       .catch(next);
   },

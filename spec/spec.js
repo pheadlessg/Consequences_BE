@@ -90,7 +90,7 @@ describe('/api', () => {
             );
             expect(res.body.story_id).to.equal(1);
           }));
-      it('GET : FAILURE responds with 404 when any page other than an endpoint is used', () => {
+      it('GET : FAILURE responds with 404 when a nonexistant story is requested', () => {
         request
           .get('/api/stories/100')
           .expect(404)
@@ -180,6 +180,14 @@ describe('/api', () => {
           .then(res => {
             expect(res.body.user_id).to.equal(1);
             expect(res.body.username).to.equal('testuser1');
+          });
+      });
+      it('GET : FAILURE returns 404 when requesting a user that does not exist', () => {
+        request
+          .get('/api/users/100')
+          .expect(404)
+          .then(res => {
+            expect(res.body.msg).to.equal('Page not found');
           });
       });
       describe('/lines', () => {
