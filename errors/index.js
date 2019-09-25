@@ -10,6 +10,12 @@ exports.handle400 = (err, req, res, next) => {
   } else next(err);
 };
 
+exports.handle422 = (err, req, res, next) => {
+  if (err.code === '23505') {
+    res.status(422).send({ msg: 'Already in use.' });
+  } else next(err);
+};
+
 exports.handle500 = (err, req, res, next) => {
   if (err.status) {
     res.status(err.status).send({ msg: err.message });
