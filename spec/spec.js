@@ -98,6 +98,8 @@ describe('/api', () => {
             expect(res.body.msg).to.equal('Page not found');
           });
       });
+      it('GET : FAILURE will respond with 400 when given a malforned story:id', () =>
+        request.get('/api/stories/notastory').expect(400));
       it('POST : SUCCESS will respond with 201 status and the added line', () => {
         const newLine = {
           body: 'This is a new test string belonging to story 1',
@@ -190,6 +192,8 @@ describe('/api', () => {
             expect(res.body.msg).to.equal('Page not found');
           });
       });
+      it('GET : FAILURE will respond with 400 when given a malforned user:id', () =>
+        request.get('/api/users/notauser').expect(400));
       describe('/lines', () => {
         it('GET : SUCCESS returns 200 and an array of all lines associated with that user', () => {
           request
